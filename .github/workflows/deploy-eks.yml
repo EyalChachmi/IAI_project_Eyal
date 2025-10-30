@@ -66,6 +66,9 @@ jobs:
     - name: Update kubeconfig
       run: |
         aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.EKS_CLUSTER_NAME }}
+        kubectl version --client
+        kubectl cluster-info
+        kubectl auth can-i get pods --all-namespaces
 
     - name: Update Kubernetes manifests
       run: |
