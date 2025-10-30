@@ -33,3 +33,36 @@ frontend/build/
 # OS
 .DS_Store
 Thumbs.db
+
+# AWS Credentials - NEVER COMMIT THESE!
+*.pem
+*.key
+*.crt
+github-actions-credentials.json
+aws-credentials.json
+.aws/
+
+# Terraform
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/*.tfstate
+terraform/*.tfstate.*
+terraform/crash.log
+terraform/crash.*.log
+terraform/*.tfvars.json
+terraform/override.tf
+terraform/override.tf.json
+terraform/*_override.tf
+terraform/*_override.tf.json
+terraform/.terraformrc
+terraform/terraform.rc
+terraform/*tfplan*
+
+# Kubernetes
+kubeconfig
+*.kubeconfig
+.kube/
+
+# Local environment
+.env
+*.local

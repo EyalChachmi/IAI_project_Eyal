@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: iai-config
+data:
+  # Backend configuration
+  FLASK_ENV: "production"
+  PYTHONUNBUFFERED: "1"
+  
+  # Add any other configuration here
+  # API_TIMEOUT: "30"
