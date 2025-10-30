@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "phone": "+1-555-0101",
+    "role": "Developer"
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "email": "jane.smith@example.com",
+    "phone": "+1-555-0102",
+    "role": "Designer"
+  },
+  {
+    "id": 3,
+    "name": "Bob Johnson",
+    "email": "bob.johnson@example.com",
+    "phone": "+1-555-0103",
+    "role": "Manager"
+  },
+  {
+    "id": 4,
+    "name": "Alice Williams",
+    "email": "alice.williams@example.com",
+    "phone": "+1-555-0104",
+    "role": "Developer"
+  },
+  {
+    "id": 5,
+    "name": "Charlie Brown",
+    "email": "charlie.brown@example.com",
+    "phone": "+1-555-0105",
+    "role": "QA Engineer"
+  },
+  {
+    "id": 6,
+    "name": "Diana Prince",
+    "email": "diana.prince@example.com",
+    "phone": "+1-555-0106",
+    "role": "Product Manager"
+  },
+  {
+    "id": 7,
+    "name": "Ethan Hunt",
+    "email": "ethan.hunt@example.com",
+    "phone": "+1-555-0107",
+    "role": "DevOps Engineer"
+  },
+  {
+    "id": 8,
+    "name": "Fiona Green",
+    "email": "fiona.green@example.com",
+    "phone": "+1-555-0108",
+    "role": "Data Analyst"
+  },
+  {
+    "id": 9,
+    "name": "George Wilson",
+    "email": "george.wilson@example.com",
+    "phone": "+1-555-0109",
+    "role": "Developer"
+  },
+  {
+    "id": 10,
+    "name": "Hannah Martin",
+    "email": "hannah.martin@example.com",
+    "phone": "+1-555-0110",
+    "role": "UX Designer"
+  }
+]
