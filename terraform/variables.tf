@@ -37,13 +37,13 @@ variable "desired_nodes" {
 variable "min_nodes" {
   description = "Minimum number of worker nodes"
   type        = number
-  default     = 1
+  default     = 2
 }
 
 variable "max_nodes" {
   description = "Maximum number of worker nodes"
   type        = number
-  default     = 3
+  default     = 2
 }
 
 variable "kubernetes_version" {
