@@ -40,12 +40,12 @@ RUN echo '<!DOCTYPE html><html><body>OK</body></html>' > /usr/share/nginx/html/h
 # Switch to non-root user
 USER appuser
 
-# Expose port 80
-EXPOSE 80
+# Expose port 8080
+EXPOSE 8080
 
 # Add healthcheck
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget --quiet --tries=1 --spider http://localhost:80/health || exit 1
+    CMD wget --quiet --tries=1 --spider http://localhost:8080/health || exit 1
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
