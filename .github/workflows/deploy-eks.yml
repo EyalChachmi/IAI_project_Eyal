@@ -75,9 +75,13 @@ jobs:
     - name: Update Kubernetes manifests
       run: |
         cd k8s
-        sed -i "s|<AWS_ACCOUNT_ID>|${{ steps.aws-account.outputs.account_id }}|g" backend-deployment.yaml frontend-deployment.yaml
+        sed -i "s|<AWS_ACCOUNT_ID>|${{ steps.aws-account.outputs.account_id }}|g" backend-deployment.yaml frontend-deployment.yaml aws-auth-configmap.yaml
         sed -i "s|<AWS_REGION>|${{ env.AWS_REGION }}|g" backend-deployment.yaml frontend-deployment.yaml
         sed -i "s|:latest|:${{ github.sha }}|g" backend-deployment.yaml frontend-deployment.yaml
+
+    - name: Configure EKS Access
+      run: |
+        kubectl apply -f k8s/aws-auth-configmap.yaml
 
     - name: Deploy to EKS
       run: |
