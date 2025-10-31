@@ -75,13 +75,9 @@ jobs:
     - name: Update Kubernetes manifests
       run: |
         cd k8s
-        sed -i "s|<AWS_ACCOUNT_ID>|${{ steps.aws-account.outputs.account_id }}|g" backend-deployment.yaml frontend-deployment.yaml aws-auth-configmap.yaml
+        sed -i "s|<AWS_ACCOUNT_ID>|${{ steps.aws-account.outputs.account_id }}|g" backend-deployment.yaml frontend-deployment.yaml
         sed -i "s|<AWS_REGION>|${{ env.AWS_REGION }}|g" backend-deployment.yaml frontend-deployment.yaml
         sed -i "s|:latest|:${{ github.sha }}|g" backend-deployment.yaml frontend-deployment.yaml
-
-    - name: Configure EKS Access
-      run: |
-        kubectl apply -f k8s/aws-auth-configmap.yaml
 
     - name: Deploy to EKS
       run: |
@@ -112,11 +108,23 @@ jobs:
     - name: Get Application URL
       id: get-url
       run: |
-        # Wait a bit for LoadBalancer to be assigned
-        sleep 30
-        FRONTEND_URL=$(kubectl get service iai-frontend -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' 2>/dev/null || echo "pending")
-        echo "Application URL: http://$FRONTEND_URL"
-        echo "url=http://$FRONTEND_URL" >> $GITHUB_OUTPUT
+        # Wait for ingress LoadBalancer to be assigned (can take 2-3 minutes)
+        echo "Waiting for Application Load Balancer to be provisioned..."
+        for i in {1..12}; do
+          INGRESS_URL=$(kubectl get ingress iai-ingress -o jsonpath='{.status.loadBalancer.ingress[0].hostname}' 2>/dev/null || echo "")
+          if [ -n "$INGRESS_URL" ]; then
+            echo "Application URL: http://$INGRESS_URL"
+            echo "url=http://$INGRESS_URL" >> $GITHUB_OUTPUT
+            break
+          fi
+          echo "Waiting for LoadBalancer... (attempt $i/12)"
+          sleep 15
+        done
+        
+        if [ -z "$INGRESS_URL" ]; then
+          echo "Warning: LoadBalancer not ready yet. Check ingress status manually."
+          echo "url=pending" >> $GITHUB_OUTPUT
+        fi
 
     - name: Deployment Summary
       run: |
