@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: iai-frontend
+  namespace: frontend
   labels:
     app: iai-frontend
     tier: frontend
@@ -61,6 +62,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: iai-frontend
+  namespace: frontend
   labels:
     app: iai-frontend
 spec:

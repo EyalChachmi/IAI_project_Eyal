@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-proxy
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: iai-backend.backend.svc.cluster.local
+  ports:
+  - port: 5000
+    targetPort: 5000
+    protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-proxy
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: iai-frontend.frontend.svc.cluster.local
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP

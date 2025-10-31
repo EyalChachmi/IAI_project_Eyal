@@ -20,13 +20,13 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: iai-backend
+            name: backend-proxy
             port:
               number: 5000
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: iai-frontend
+            name: frontend-proxy
             port:
               number: 80

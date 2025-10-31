@@ -81,15 +81,17 @@ jobs:
 
     - name: Deploy to EKS
       run: |
+        kubectl apply -f k8s/namespaces.yaml
         kubectl apply -f k8s/configmap.yaml
         kubectl apply -f k8s/backend-deployment.yaml
         kubectl apply -f k8s/frontend-deployment.yaml
+        kubectl apply -f k8s/proxy-services.yaml
         kubectl apply -f k8s/ingress.yaml
 
     - name: Wait for deployments to be ready
       run: |
-        kubectl rollout status deployment/iai-backend --timeout=5m
-        kubectl rollout status deployment/iai-frontend --timeout=5m
+        kubectl rollout status deployment/iai-backend -n backend --timeout=5m
+        kubectl rollout status deployment/iai-frontend -n frontend --timeout=5m
 
     - name: Get deployment info
       run: |
