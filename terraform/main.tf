@@ -80,6 +80,7 @@ module "eks" {
   desired_nodes      = var.desired_nodes
   min_nodes          = var.min_nodes
   max_nodes          = var.max_nodes
+  aws_account_id     = data.aws_caller_identity.current.account_id
   tags               = local.common_tags
 
   depends_on = [module.vpc]
