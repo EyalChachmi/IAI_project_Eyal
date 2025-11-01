@@ -69,8 +69,21 @@ jobs:
         echo "Waiting for authentication to propagate..."
         sleep 5
         kubectl version --client
+
+    - name: Apply RBAC configuration
+      run: |
+        kubectl apply -f k8s/namespaces.yaml
+        kubectl apply -f k8s/github-actions-rbac.yaml
+        echo "Waiting for RBAC to propagate..."
+        sleep 3
+
+    - name: Verify cluster access
+      run: |
+        echo "Verifying permissions..."
         kubectl get nodes
-        kubectl auth can-i create deployments --all-namespaces
+        kubectl auth can-i get nodes
+        kubectl auth can-i create deployments -n backend
+        kubectl auth can-i create deployments -n frontend
 
     - name: Update Kubernetes manifests
       run: |
@@ -81,8 +94,6 @@ jobs:
 
     - name: Deploy to EKS
       run: |
-        kubectl apply -f k8s/namespaces.yaml
-        kubectl apply -f k8s/github-actions-rbac.yaml
         kubectl apply -f k8s/configmap.yaml
         kubectl apply -f k8s/backend-deployment.yaml
         kubectl apply -f k8s/frontend-deployment.yaml
