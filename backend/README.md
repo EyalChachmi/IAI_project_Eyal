@@ -1,20 +1,5 @@
 # Flask Backend API
 
-## Installation
-
-```bash
-cd backend
-pip install -r requirements.txt
-```
-
-## Running the Server
-
-```bash
-python app.py
-```
-
-The server will start on `http://localhost:5000`
-
 ## API Endpoints
 
 ### Get All Users
