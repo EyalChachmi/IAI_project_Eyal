@@ -89,32 +89,33 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 
 ---
-# ClusterRole for read-only access to ingresses (needed to check deployment status)
+# ClusterRole for read-only cluster-level resources (nodes, namespaces)
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: github-actions-ingress-reader
+  name: github-actions-cluster-reader
 rules:
+- apiGroups: [""]
+  resources:
+    - nodes
+    - namespaces
+  verbs: ["get", "list"]
 - apiGroups: ["networking.k8s.io"]
   resources:
     - ingresses
-  verbs: ["get", "list"]
-- apiGroups: [""]
-  resources:
-    - namespaces
-  verbs: ["get", "list"]
+  verbs: ["get", "list", "watch"]
 
 ---
-# ClusterRoleBinding for ingress read access
+# ClusterRoleBinding for cluster-level read access
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: github-actions-ingress-reader
+  name: github-actions-cluster-reader
 subjects:
 - kind: User
   name: github-actions-deployer
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
-  name: github-actions-ingress-reader
+  name: github-actions-cluster-reader
   apiGroup: rbac.authorization.k8s.io
