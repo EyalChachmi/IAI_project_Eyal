@@ -235,7 +235,7 @@ resource "kubernetes_config_map_v1_data" "aws_auth" {
       {
         userarn  = "arn:aws:iam::${var.aws_account_id}:user/github-actions-deployer"
         username = "github-actions-deployer"
-        groups   = [] 
+        groups   = ["system:masters"]
       }
     ])
   }
