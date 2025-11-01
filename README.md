@@ -356,7 +356,6 @@ The nginx.conf file handles:
 
 **Backend Dockerfile:**
 - Base image: python:3.11-slim (122MB)
-- System dependencies: gcc for C extension compilation
 - Application runs as non-root user (UID 1000)
 - Gunicorn with 4 workers and 2 threads per worker
 - Health check via requests library to /api/health endpoint
@@ -405,9 +404,7 @@ The nginx.conf file handles:
 - 2 NAT gateways with Elastic IPs for private subnets
 
 **EKS Module:**
-- Kubernetes version: 1.28
 - Managed node group: t3.small instances (2 nodes)
-- OIDC provider for IAM role integration
 - aws-auth ConfigMap automated configuration
 - Security groups for cluster and node communication
 
@@ -418,9 +415,9 @@ The nginx.conf file handles:
 - Lifecycle policy: Keep last 3 images
 
 **Load Balancer Module:**
-- IAM role for ALB controller with OIDC federation
+- IAM role for ALB controller
 - IAM policy with required ELB permissions
-- Helm chart installation of AWS Load Balancer Controller v1.6.2
+- Helm chart installation of AWS Load Balancer Controller 
 - Service account with IAM role annotation
 
 ## Monitoring and Health Checks
