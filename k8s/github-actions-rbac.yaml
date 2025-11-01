@@ -1,0 +1,120 @@
+---
+# Role for backend namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: github-actions-deployer
+  namespace: backend
+rules:
+- apiGroups: [""]
+  resources:
+    - pods
+    - services
+    - configmaps
+    - secrets
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["apps"]
+  resources:
+    - deployments
+    - replicasets
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: [""]
+  resources:
+    - pods/log
+  verbs: ["get", "list"]
+- apiGroups: [""]
+  resources:
+    - pods/status
+  verbs: ["get"]
+
+---
+# RoleBinding for backend namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: github-actions-deployer
+  namespace: backend
+subjects:
+- kind: User
+  name: github-actions-deployer
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: github-actions-deployer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# Role for frontend namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: github-actions-deployer
+  namespace: frontend
+rules:
+- apiGroups: [""]
+  resources:
+    - pods
+    - services
+    - configmaps
+    - secrets
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["apps"]
+  resources:
+    - deployments
+    - replicasets
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: [""]
+  resources:
+    - pods/log
+  verbs: ["get", "list"]
+- apiGroups: [""]
+  resources:
+    - pods/status
+  verbs: ["get"]
+
+---
+# RoleBinding for frontend namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: github-actions-deployer
+  namespace: frontend
+subjects:
+- kind: User
+  name: github-actions-deployer
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: github-actions-deployer
+  apiGroup: rbac.authorization.k8s.io
+
+---
+# ClusterRole for read-only access to ingresses (needed to check deployment status)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: github-actions-ingress-reader
+rules:
+- apiGroups: ["networking.k8s.io"]
+  resources:
+    - ingresses
+  verbs: ["get", "list"]
+- apiGroups: [""]
+  resources:
+    - namespaces
+  verbs: ["get", "list"]
+
+---
+# ClusterRoleBinding for ingress read access
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: github-actions-ingress-reader
+subjects:
+- kind: User
+  name: github-actions-deployer
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: github-actions-ingress-reader
+  apiGroup: rbac.authorization.k8s.io
