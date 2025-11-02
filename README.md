@@ -1,4 +1,4 @@
-# User Management System
+# IAI Project
 
 A production-ready full-stack web application for user management and search functionality. The system consists of a RESTful API backend built with Python Flask and a responsive React frontend, both containerized and deployed to AWS EKS with automated CI/CD pipeline.
 
