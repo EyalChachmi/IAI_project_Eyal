@@ -7,12 +7,9 @@ A production-ready full-stack web application for user management and search fun
 - [Architecture](#architecture)
 - [Technologies](#technologies)
 - [Features](#features)
-- [Project Structure](#project-structure)
-- [Local Development](#local-development)
 - [Deployment](#deployment)
 - [Component Details](#component-details)
 - [Monitoring and Health Checks](#monitoring-and-health-checks)
-- [License](#license)
 - [Author](#author)
 
 ## Project Overview
