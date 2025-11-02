@@ -20,6 +20,7 @@ This application provides a user management interface with search capabilities. 
 
 The application follows a microservices architecture with clear separation between frontend and backend services:
 
+![Architecture Diagram](Diagram.png)
 
 **Request Flow:**
 1. User accesses the application through AWS Application Load Balancer
